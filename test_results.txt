@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.19, pytest-9.0.1, pluggy-1.6.0 -- /home/cirrusrays/anaconda3/envs/neura/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/cirrusrays/Music/Neura_2
+configfile: pytest.ini
+plugins: asyncio-1.3.0, langsmith-0.4.47, anyio-4.11.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 35 items
+
+tests/test_agent.py::TestAIAgent::test_agent_initialization PASSED       [  2%]
+tests/test_agent.py::TestAIAgent::test_classify_pdf_query PASSED         [  5%]
+tests/test_agent.py::TestAIAgent::test_classify_weather_query PASSED     [  8%]
+tests/test_agent.py::TestAIAgent::test_fetch_pdf_context_no_embeddings PASSED [ 11%]
+tests/test_agent.py::TestAIAgent::test_fetch_pdf_context_with_embeddings PASSED [ 14%]
+tests/test_agent.py::TestAIAgent::test_fetch_weather PASSED              [ 17%]
+tests/test_agent.py::TestAIAgent::test_generate_response PASSED          [ 20%]
+tests/test_agent.py::TestAIAgent::test_invoke_weather_query PASSED       [ 22%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_get_pdf_list_empty PASSED [ 25%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_get_pdf_list_with_files PASSED [ 28%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_load_invalid_file PASSED [ 31%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_load_nonexistent_file PASSED [ 34%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_load_pdf_success PASSED [ 37%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_process_pdf PASSED   [ 40%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_split_text PASSED    [ 42%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_split_text_single_chunk PASSED [ 45%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_validate_pdf_invalid PASSED [ 48%]
+tests/test_pdf_processor.py::TestPDFProcessor::test_validate_pdf_nonexistent PASSED [ 51%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_format_context PASSED [ 54%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_format_context_empty PASSED [ 57%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_get_context_for_query PASSED [ 60%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_get_context_without_scores PASSED [ 62%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_retrieve PASSED      [ 65%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_summarize_context_long PASSED [ 68%]
+tests/test_rag_retriever.py::TestRAGRetriever::test_summarize_context_short PASSED [ 71%]
+tests/test_vector_store.py::TestVectorStore::test_add_embeddings PASSED  [ 74%]
+tests/test_vector_store.py::TestVectorStore::test_add_embeddings_mismatch PASSED [ 77%]
+tests/test_vector_store.py::TestVectorStore::test_get_stats PASSED       [ 80%]
+tests/test_vector_store.py::TestVectorStore::test_search PASSED          [ 82%]
+tests/test_vector_store.py::TestVectorStore::test_vector_store_initialization PASSED [ 85%]
+tests/test_weather_service.py::TestWeatherService::test_format_weather_text PASSED [ 88%]
+tests/test_weather_service.py::TestWeatherService::test_get_weather_api_error PASSED [ 91%]
+tests/test_weather_service.py::TestWeatherService::test_get_weather_city_not_found PASSED [ 94%]
+tests/test_weather_service.py::TestWeatherService::test_get_weather_success PASSED [ 97%]
+tests/test_weather_service.py::TestWeatherService::test_validate_api_key PASSED [100%]
+
+=============================== warnings summary ===============================
+../../anaconda3/envs/neura/lib/python3.10/site-packages/PyPDF2/__init__.py:21
+  /home/cirrusrays/anaconda3/envs/neura/lib/python3.10/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 35 passed, 1 warning in 4.26s =========================
