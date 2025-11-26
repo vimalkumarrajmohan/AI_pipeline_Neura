@@ -1,13 +1,6 @@
 # AI Pipeline with LangGraph, LangChain, and LangSmith
 
-A comprehensive AI pipeline that combines weather API integration, PDF-based RAG,- **RAG Retriever** (`src/rag_retriever.py`):
-    - Finds the most relevant information from your PDFs and summarizes it for you.
-
-- **Search Service** (`src/search_service.py`):
-    - Uses Tavily API to perform web searches for general knowledge queries.
-
-- **LangSmith Evaluator** (`src/langsmith_evaluator.py`):
-    - Checks and logs how well the AI is answering your questions using LLM-as-judge evaluation, so you can see how it's doing.agentic decision-making using LangGraph and Groq API.
+A comprehensive AI pipeline that combines weather API integration, PDF-based RAG, and agentic decision-making using LangGraph and Groq API.
 
 ## Features
 
@@ -61,9 +54,11 @@ Neura/
 ### How to Set Up
 
 1. **Download the project**
-    - Clone this repo to your computer and open the folder.
-    '''git clone {URL}
-        cd AI_pipeline_Neura'''
+    - Clone this repo to your computer and open the folder:
+      ```bash
+      git clone https://github.com/vimalkumarrajmohan/AI_pipeline_Neura.git
+      cd AI_pipeline_Neura
+      ```
 
 2. **Set up Python**
     - Make a virtual environment:
