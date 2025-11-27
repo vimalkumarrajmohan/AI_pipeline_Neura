@@ -123,7 +123,7 @@ correct_answers = ["The Transformer overcomes the inherently sequential computat
                     "The base model was trained for 100,000 steps and took about 12 hours on 8 NVIDIA P100 GPUs.",
                     "The Transformer (big) achieved a BLEU score of 28.4 on WMT 2014 English–German.",
                     "The Transformer (big) achieved a BLEU score of 41.8 on WMT 2014 English–French.",
-                    "No, the Transformer model Does not rely on attention mechanisms instead of recurrent or convolutional layers."
+                    "Yes, the Transformer model rely on attention mechanisms instead of recurrent or convolutional layers."
                 ]
 
 

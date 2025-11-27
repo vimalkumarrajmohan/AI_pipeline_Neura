@@ -38,23 +38,56 @@ class AIAgent:
         except Exception as e:
             logger.warning(f"Failed to initialize embeddings: {e}")
             self.embeddings = None
+        
+        # Initialize and compile the LangGraph
+        try:
+            self.graph = self.create_graph()
+            logger.info("LangGraph compiled successfully")
+        except Exception as e:
+            logger.error(f"Failed to compile LangGraph: {e}")
+            self.graph = None
     
     def create_graph(self):
         graph = StateGraph(dict)
         
+        # NODES
         graph.add_node("classify", self._classify_query)
         graph.add_node("fetch_weather", self._fetch_weather)
         graph.add_node("fetch_pdf_context", self._fetch_pdf_context)
         graph.add_node("fetch_general_context", self._fetch_general_context)
         graph.add_node("generate_response", self._generate_response)
         
+
+
+        # routing logic after classification
+        def route_after_classify(state: Dict[str, Any]) -> str:
+            query_type = state.get("query_type", "general")
+            if query_type == "weather":
+                return "fetch_weather"
+            elif query_type == "pdf":
+                return "fetch_pdf_context"
+            else:
+                return "fetch_general_context"
+        
+
+        # EDGES
         graph.add_edge(START, "classify")
-        graph.add_edge("classify", "fetch_weather")
-        graph.add_edge("classify", "fetch_pdf_context")
-        graph.add_edge("classify", "fetch_general_context")
+        graph.add_conditional_edges(
+                                    "classify",
+                                    route_after_classify,
+                                    {
+                                        "fetch_weather": "fetch_weather",
+                                        "fetch_pdf_context": "fetch_pdf_context",
+                                        "fetch_general_context": "fetch_general_context"
+                                    }
+                                )
+        
+        # All fetch nodes lead to response generation
         graph.add_edge("fetch_weather", "generate_response")
         graph.add_edge("fetch_pdf_context", "generate_response")
         graph.add_edge("fetch_general_context", "generate_response")
+        
+        # Response generation leads to end
         graph.add_edge("generate_response", END)
         
         return graph.compile()
@@ -225,7 +258,7 @@ Be accurate, clear, and concise."""
     @traceable
     def invoke(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         try:
-            state = {
+            initial_state = {
                 "query": input_data.get("query", ""),
                 "query_type": "",
                 "weather_data": None,
@@ -235,20 +268,29 @@ Be accurate, clear, and concise."""
                 "metadata": {}
             }
             
-            logger.info(f"Processing query: {state['query']}")
+            logger.info(f"Processing query: {initial_state['query']}")
             
-            state = self._classify_query(state)
-            
-            if state.get("query_type") == "weather":
-                state = self._fetch_weather(state)
-            elif state.get("query_type") == "pdf":
-                state = self._fetch_pdf_context(state)
+            # Use the compiled LangGraph to process the query
+            if self.graph:
+                logger.info("Executing query using LangGraph")
+                result_state = self.graph.invoke(initial_state)
+                return result_state
             else:
-                state = self._fetch_general_context(state)
-            
-            state = self._generate_response(state)
-
-            return state
+                # Fallback to manual method calls if graph compilation failed
+                logger.warning("Graph not available, falling back to manual method calls")
+                state = initial_state
+                
+                state = self._classify_query(state)
+                
+                if state.get("query_type") == "weather":
+                    state = self._fetch_weather(state)
+                elif state.get("query_type") == "pdf":
+                    state = self._fetch_pdf_context(state)
+                else:
+                    state = self._fetch_general_context(state)
+                
+                state = self._generate_response(state)
+                return state
             
         except Exception as e:
             logger.error(f"Error invoking agent: {e}")
@@ -258,6 +300,8 @@ Be accurate, clear, and concise."""
                 "metadata": {"error": str(e)}
             }
     
+
+
     def _process_query(self, query: str) -> str:
         result = self.invoke({"query": query})
         return result.get("response", "No response generated")
