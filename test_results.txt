@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
-platform linux -- Python 3.10.19, pytest-9.0.1, pluggy-1.6.0 -- /home/cirrusrays/anaconda3/envs/neura/bin/python3
+platform linux -- Python 3.10.19, pytest-9.0.1, pluggy-1.6.0 -- /home/vimal/anaconda3/envs/neura/bin/python3
 cachedir: .pytest_cache
-rootdir: /home/cirrusrays/Music/Neura_2
+rootdir: /home/vimal/Music/Neura_2
 configfile: pytest.ini
 plugins: asyncio-1.3.0, langsmith-0.4.47, anyio-4.11.0
 asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
@@ -45,7 +45,7 @@ tests/test_weather_service.py::TestWeatherService::test_validate_api_key PASSED 
 
 =============================== warnings summary ===============================
 ../../anaconda3/envs/neura/lib/python3.10/site-packages/PyPDF2/__init__.py:21
-  /home/cirrusrays/anaconda3/envs/neura/lib/python3.10/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+  /home/vimal/anaconda3/envs/neura/lib/python3.10/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
     warnings.warn(
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
